@@ -8,9 +8,40 @@ h1 {
     color: hsl(118, 47%, 30%); 
 }
 img {
-    width: 800px; 
+    width: 600px; 
     height: auto; 
     border: 2px solid hsl(118, 47%, 30%); 
     border-radius: 10px; 
     margin-top: 20px;
+}
+
+p {
+    color: #333; 
+    font-family: Arial, sans-serif;
+    text-align: justify;
+    font-size: 20px;
+
+}
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    font-size: 20px;
+}
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+ul {
+    text-align: left
+}
+h3 {
+    text-align: left
+}
+nav {
+    text-align: left
 }
