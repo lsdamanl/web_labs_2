@@ -284,3 +284,19 @@ def calc_default_redirect():
 @app.route('/lab2/calc/<int:a>')
 def calc_with_redirect(a):
     return redirect(url_for('calc', a=a, b=1))
+
+@app.route('/lab2/books')
+def show_books():
+    books = [
+        {"author": "Фёдор Достоевский", "title": "Преступление и наказание", "genre": "Роман", "pages": 671},
+        {"author": "Лев Толстой", "title": "Война и мир", "genre": "Роман", "pages": 1225},
+        {"author": "Джордж Оруэлл", "title": "1984", "genre": "Антиутопия", "pages": 328},
+        {"author": "Габриэль Гарсия Маркес", "title": "Сто лет одиночества", "genre": "Магический реализм", "pages": 417},
+        {"author": "Даниэль Дефо", "title": "Робинзон Крузо", "genre": "Приключения", "pages": 320},
+        {"author": "Джон Рональд Руэл Толкин", "title": "Властелин колец", "genre": "Фэнтези", "pages": 1137},
+        {"author": "Артур Конан Дойл", "title": "Приключения Шерлока Холмса", "genre": "Детектив", "pages": 305},
+        {"author": "Агата Кристи", "title": "Убийство в Восточном экспрессе", "genre": "Детектив", "pages": 288},
+        {"author": "Александр Дюма", "title": "Граф Монте-Кристо", "genre": "Роман", "pages": 1243},
+        {"author": "Михаил Булгаков", "title": "Мастер и Маргарита", "genre": "Фантастика", "pages": 480},
+    ]
+    return render_template('books.html', books=books)
