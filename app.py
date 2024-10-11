@@ -300,3 +300,60 @@ def show_books():
         {"author": "Михаил Булгаков", "title": "Мастер и Маргарита", "genre": "Фантастика", "pages": 480},
     ]
     return render_template('books.html', books=books)
+
+@app.route('/lab2/cars')
+def show_cars():
+    cars = [
+        {"name": "BMW", "description": "Немецкий производитель автомобилей, известных своей динамичностью и качеством.", "image": "bmw.jpg"},
+        {"name": "Mercedes", "description": "Люксовый бренд, символизирующий стиль, комфорт и технологичность.", "image": "mercedes.webp"},
+        {"name": "Audi", "description": "Известный немецкий бренд, выпускающий премиальные автомобили с передовыми технологиями.", "image": "audi.jpg"},
+        {"name": "Toyota", "description": "Японская компания, производящая надежные автомобили для широкого круга потребителей.", "image": "toyota.png"},
+        {"name": "Tesla", "description": "Американская компания, выпускающая инновационные электромобили с автопилотом.", "image": "tesla.webp"},
+    ]
+    cars_html = '''
+    <!doctype html>
+    <html>
+        <head>
+            <style>
+                .car-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+                }
+                .car-item {
+                    width: 30%;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                .car-item img {
+                    width: 100%;
+                    height: auto;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                }
+                .car-item h2 {
+                    font-size: 24px;  
+                }
+                .car-item p {
+                    font-size: 20px;  
+                }
+            </style>
+        </head>
+        <body>
+            <h1 style="text-align:center;">Список автомобилей</h1>
+            <div class="car-container">
+    '''
+    for car in cars:
+        cars_html += f'''
+        <div class="car-item">
+            <img src="/static/{car['image']}" alt="{car['name']}">
+            <h2>{car['name']}</h2>
+            <p>{car['description']}</p>
+        </div>
+        '''
+    cars_html += '''
+            </div>
+        </body>
+    </html>
+    '''
+    return cars_html
