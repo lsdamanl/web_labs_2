@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{# Номер лабораторной работы: }
+{# Номер лабораторной работы: #}
 
 {% block lab %}Лабораторная работа 2{% endblock %}
 
@@ -12,6 +12,20 @@
     <ol>
         <li>
             <a href="/lab2/example">example</a>
+            <li><a href="/lab2/a">Пример без слэша</a></li>
+            <li><a href="/lab2/a/">Пример со слэшем</a></li>
+            <li><a href="/lab2/all_flowers">Список цветков</a></li>
+            <li><a href="/lab2/flowers/0">Цветок 1: Роза</a></li>
+            <li><a href="/lab2/flowers/1">Цветок 2: Тюльпан</a></li>
+            <li><a href="/lab2/flowers/2">Цветок 3: Незабудка</a></li>
+            <li><a href="/lab2/flowers/3">Цветок 4: Ромашка</a></li>
+            <li><a href="/lab2/add_flower/">Новый цветок</a></li>
+            <li><a href="/lab2/clear_flowers">Улаоить цветки</a></li>
+            <li><a href="/lab2/filters">Фильтры</a></li>
+            <li><a href="/lab2/calc">Калькулятор</a></li>
+            <li><a href="/lab2/books">Книги</li>
+            <li><a href="/lab2/cars">Автомобили</a></li>
+    
         </li>
     </ol>
 {% endblock %}

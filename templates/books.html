@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Шипилов Дмитрий, Лабораторная работа 2
-    </title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-</head>
-<body>
-    <header>
-        WEB-программирование, часть 2. Лабораторная работа 2
-    </header>
+{% extends "base.html" %}
 
-    <main>
+{# номер лабораторной работы: #}
+{% block lab %}Лабораторная работа 2{% endblock %}
+
+    {% block main %}
         <h1>Список книг</h1>
         <table>
             <thead>
@@ -35,10 +25,5 @@
                 {% endfor %}
             </tbody>
         </table>
-    </main>
+    {% endblock %}
 
-    <footer>
-        &copy; Шипилов Дмитрий, ФБИ-24, 3 курс, 2024
-    </footer>
-</body>
-</html>
