@@ -190,3 +190,4 @@ def example():
     number_course = '3 курс'
     number_lab = '2'
     return render_template('example.html', name=name, group=group, number_course=number_course, number_lab=number_lab)
+    
