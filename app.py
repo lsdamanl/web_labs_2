@@ -1,10 +1,12 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, url_for, render_template
 from lab1 import lab1
 from lab2 import lab2
+from lab3 import lab3
 
 app = Flask(__name__)
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
+app.register_blueprint(lab3)
 
 
 @app.route("/")
@@ -24,7 +26,7 @@ def menu():
         <title>НГТУ, ФБ, Лабораторные работы</title>
     </head>
     <body>
-        <header>
+        <header  style="margin-bottom: 30px; padding: 20px; background-color: #333; color: white; font-size: 18px;">
             НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных
         </header>
 
@@ -32,10 +34,11 @@ def menu():
             <ul>
                 <li><a href="/lab1">Первая лабораторная</a></li>
                 <li><a href="/lab2">Вторая лабораторная</a></li>
+                <li><a href="/lab3">Третья лабораторная</a></li>
             </ul>
         </nav>
 
-        <footer>
+        <footer  style="background-color: #333; color: white; font-size: 18px; padding: 10px; text-align: right; position: fixed; bottom: 0; left: 0; right: 0;">
             &copy; Шипилов Дмитрий Андреевич, ФБИ-24, 3 курс, 2024
         </footer>
     </body>
