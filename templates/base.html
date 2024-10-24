@@ -6,6 +6,16 @@
     <title>Шипилов Дмитрий. {% block lab %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+    <style>
+        body {
+            color: {{ request.cookies.get('color') }};
+            background-color: {{ request.cookies.get('bgcolor', '#ffffff') }};
+            font-size: {{ request.cookies.get('font_size', '16') }}px;
+            {% if request.cookies.get('bold') %}
+            font-weight: bold;
+            {% endif %}
+        }
+    </style>
 
 </head>
 <body>
