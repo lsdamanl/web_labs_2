@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+   <h1>Результаты поиска</h1>
+<p>Товары с ценой от {{ min_price }} до {{ max_price }}:</p>
+
+<ul>
+    {% for product in products %}
+    <li>
+        <strong>{{ product.name }}</strong> - {{ product.price }} руб.
+        <br>Видеопамять: {{ product.memory }}, Бренд: {{ product.brand }}
+    </li>
+    {% else %}
+    <li>Товары не найдены</li>
+    {% endfor %}
+</ul>
+
+<a href="/lab3/search_form">Новый поиск</a>
+{% endblock %}
