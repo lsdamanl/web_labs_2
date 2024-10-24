@@ -7,7 +7,7 @@ def lab():
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='/lab1/lab1.css') + '''">
         <title>Шипилов Дмитрий Андреевич, лабораторная работа 1</title>
     </head>
     <body>
@@ -47,12 +47,12 @@ def oak():
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='/lab1/lab1.css') + '''">
         <title>Дуб</title>
     </head>
     <body>
         <h1>Дуб</h1>
-        <img src="''' + url_for('static', filename='oak.jpg') + '''">
+        <img src="''' + url_for('static', filename='/lab1/oak.jpg') + '''">
     </body>
 </html>
 '''
@@ -65,12 +65,12 @@ def student():
 <html>
     <head>
         <title>О студенте</title>
-        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='/lab1/lab1.css') + '''">
     </head>
     <body>
         <h1>Шипилов Дмитрий Андреевич</h1>
         <h2>Группа ФБИ-24, 3 курс</h2>
-        <img src="''' + url_for('static', filename='nstu.png') + '''">
+        <img src="''' + url_for('static', filename='/lab1/nstu.png') + '''">
     </body>
 </html>
 '''
@@ -83,7 +83,7 @@ def python_info():
 <html>
     <head>
         <title>О языке Python</title>
-        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='/lab1/lab1.css') + '''">
     </head>
     <body>
         <h1>Python</h1>
@@ -94,7 +94,7 @@ def python_info():
         <p>Python активно используется в таких областях, как веб-разработка, анализ данных, машинное обучение и автоматизация. 
         Благодаря простому синтаксису и большому количеству библиотек, Python стал одним из самых популярных языков программирования.</p>
 
-        <img src="''' + url_for('static', filename='python.png') + '''">
+        <img src="''' + url_for('static', filename='/lab1/python.png') + '''">
 
     </body>
 </html>
@@ -108,7 +108,7 @@ def custom():
 <html>
     <head>
         <title>Mnogoznaal</title>
-        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" type="text/css" href="''' + url_for('static', filename='/lab1/lab1.css') + '''">
     </head>
     <body>
         <h1>Mnogoznaal</h1>
@@ -124,7 +124,7 @@ def custom():
         The Notorious B.I.G. и рэпер Jay Electronica.</p>
     
 
-        <img src="''' + url_for('static', filename='Mnogoznaal.png') + '''">
+        <img src="''' + url_for('static', filename='/lab1/Mnogoznaal.png') + '''">
     </body>
 </html>
 '''
