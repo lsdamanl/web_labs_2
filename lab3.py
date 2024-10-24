@@ -107,3 +107,41 @@ def settings():
     bold = request.cookies.get('bold')
     resp = make_response(render_template('lab3/settings.html', color=color, bgcolor=bgcolor, font_size=font_size, bold=bold))
     return resp
+
+
+@lab3.route('/lab3/ticket', methods=['GET', 'POST'])
+def ticket():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        age = int(request.form.get('age'))
+        departure = request.form.get('departure')
+        destination = request.form.get('destination')
+        date = request.form.get('date')
+        berth = request.form.get('berth')
+        bedding = 'bedding' in request.form
+        luggage = 'luggage' in request.form
+        insurance = 'insurance' in request.form
+
+        if age < 18:
+            ticket_type = 'Детский билет'
+            price = 700
+        else:
+            ticket_type = 'Взрослый билет'
+            price = 1000
+
+        if berth in ['нижняя', 'нижняя боковая']:
+            price += 100
+
+
+        if bedding:
+            price += 75
+        if luggage:
+            price += 250
+        if insurance:
+            price += 150
+
+        return render_template('lab3/ticket.html', name=name, age=age, departure=departure,
+                               destination=destination, date=date, berth=berth, bedding=bedding,
+                               luggage=luggage, insurance=insurance, ticket_type=ticket_type, price=price)
+    
+    return render_template('lab3/ticket_form.html')

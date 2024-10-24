@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    <h1>Заполните данные для билета</h1>
+    <form method="POST">
+        <div>
+            <label for="name">ФИО пассажира:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="age">Возраст:</label>
+            <input type="number" id="age" name="age" min="1" max="120" required>
+        </div>
+        <div>
+            <label for="departure">Пункт выезда:</label>
+            <input type="text" id="departure" name="departure" required>
+        </div>
+        <div>
+            <label for="destination">Пункт назначения:</label>
+            <input type="text" id="destination" name="destination" required>
+        </div>
+        <div>
+            <label for="date">Дата поездки:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div>
+            <label>Полка:</label>
+            <label><input type="radio" name="berth" value="нижняя" required> Нижняя</label>
+            <label><input type="radio" name="berth" value="верхняя" required> Верхняя</label>
+            <label><input type="radio" name="berth" value="нижняя боковая" required> Нижняя боковая</label>
+            <label><input type="radio" name="berth" value="верхняя боковая" required> Верхняя боковая</label>
+        </div>
+        <div>
+            <label for="bedding">С бельём:</label>
+            <input type="checkbox" id="bedding" name="bedding">
+        </div>
+        <div>
+            <label for="luggage">С багажом:</label>
+            <input type="checkbox" id="luggage" name="luggage">
+        </div>
+        <div>
+            <label for="insurance">Нужна страховка:</label>
+            <input type="checkbox" id="insurance" name="insurance">
+        </div>
+        <div>
+            <button type="submit">Сформировать билет</button>
+        </div>
+    </form>
+{% endblock %}
