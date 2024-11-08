@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session
+from flask import Blueprint, render_template, request, redirect, session, url_for
 lab4 = Blueprint('lab4',__name__)
 
 
@@ -148,10 +148,60 @@ def login():
     error = 'Неверные логин и/или пароль'
     return render_template('lab4/login.html', error=error, authorized=False, login=login)
 
+
 @lab4.route('/lab4/logout', methods=['POST'])
 def logout():
     session.pop('login', None)
     return redirect('/lab4/login')
+
+
+@lab4.route('/lab4/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        login = request.form.get('login')
+        password = request.form.get('password')
+        name = request.form.get('name')
+
+        if not login or not password or not name:
+            return render_template('lab4/register.html', error='Все поля обязательны!')
+
+        if any(user['login'] == login for user in users):
+            return render_template('lab4/register.html', error='Логин уже существует!')
+
+        users.append({'login': login, 'password': password, 'name': name, 'gender': 'не указан'})
+        return redirect(url_for('lab4.login'))
+    return render_template('lab4/register.html')
+
+@lab4.route('/lab4/users')
+def users_list():
+    if 'login' not in session:
+        return redirect(url_for('lab4.login'))
+    return render_template('lab4/users.html', users=users, login=session['login'])
+
+@lab4.route('/lab4/delete_user', methods=['POST'])
+def delete_user():
+    if 'login' in session:
+        users[:] = [user for user in users if user['login'] != session['login']]
+        session.pop('login', None)
+    return redirect(url_for('lab4.login'))
+
+@lab4.route('/lab4/edit_user', methods=['GET', 'POST'])
+def edit_user():
+    if 'login' not in session:
+        return redirect(url_for('lab4.login'))
+
+    user = next((u for u in users if u['login'] == session['login']), None)
+    if request.method == 'POST':
+        new_name = request.form.get('name')
+        new_password = request.form.get('password')
+
+        if new_name:
+            user['name'] = new_name
+        if new_password:
+            user['password'] = new_password
+        return redirect(url_for('lab4.users_list'))
+
+    return render_template('lab4/edit_user.html', user=user)
 
 
 @lab4.route('/lab4/fridge', methods=['GET', 'POST'])

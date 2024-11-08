@@ -10,6 +10,7 @@
                 <button>Выход</button>
             </form>
         </div>
+        <p><a href="{{ url_for('lab4.users_list') }}">Посмотреть всех пользователей</a></p>
     {% else %}
         <h1>Вход</h1>
         <h2>Пожалуйста, авторизуйтесь</h2>
@@ -28,5 +29,7 @@
                 <button type="reset">Отмена</button>
             </div>
         </form>
+
+        <p>Нет аккаунта? <a href="{{ url_for('lab4.register') }}">Зарегистрироваться</a></p>
     {% endif %}
 {% endblock %}
