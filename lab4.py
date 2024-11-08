@@ -152,3 +152,32 @@ def login():
 def logout():
     session.pop('login', None)
     return redirect('/lab4/login')
+
+
+@lab4.route('/lab4/fridge', methods=['GET', 'POST'])
+def fridge():
+    if request.method == 'POST':
+        temperature = request.form.get('temperature')
+        
+        if temperature == '':
+            error = 'Ошибка: не задана температура'
+            return render_template('lab4/fridge.html', error=error)
+        
+        try:
+            temperature = int(temperature)
+        except ValueError:
+            error = 'Ошибка: введите числовое значение'
+            return render_template('lab4/fridge.html', error=error)
+        
+        if temperature < -12:
+            error = 'Не удалось установить температуру — слишком низкое значение'
+            return render_template('lab4/fridge.html', error=error)
+        elif temperature > -1:
+            error = 'Не удалось установить температуру — слишком высокое значение'
+            return render_template('lab4/fridge.html', error=error)
+        
+        snowflakes = 3 if -12 <= temperature <= -9 else 2 if -8 <= temperature <= -5 else 1
+        message = f'Установлена температура: {temperature}°С'
+        return render_template('lab4/fridge.html', message=message, snowflakes=snowflakes)
+    
+    return render_template('lab4/fridge.html')
