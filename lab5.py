@@ -15,7 +15,7 @@ def main():
 
 
 def db_connect():
-    if current_app.configp['DB_TYPE'] == 'postgres':
+    if current_app.config['DB_TYPE'] == 'postgres':
         conn = psycopg2.connect(
             host = '127.0.0.1',
             database = 'shipilov_dmitriy_knowledge_base',
