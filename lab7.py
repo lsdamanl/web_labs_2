@@ -81,23 +81,23 @@ def del_film(id):
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['PUT'])
 def put_film(id):
-    if 0 <= id < len(films):  
-        film = request.get_json()
-        if not film or not isinstance(film, dict):
-            return {"error": "Invalid film data"}, 400  
-
-        films[id] = film
-        return {"message": "Film updated successfully", "film": films[id]}, 200
-    return {"error": "Film not found"}, 404  
+    film = request.get_json()
+    if film['description'] == '':
+        return {'description': 'Заполните описание'}, 400
+    films[id] = film
+    return films[id]
 
 
 @lab7.route('/lab7/rest-api/films/', methods=['POST'])
 def add_film():
     film = request.get_json()
     if not film or not isinstance(film, dict):
-        return {"error": "Invalid film data"}, 400  
+        return {"error": "Неверные данные фильма"}, 400  
+    
+    if not film.get('description', '').strip():
+        return {"description": "Заполните описание"}, 400  
 
     films.append(film)
     
     new_index = len(films) - 1
-    return {"message": "Film added successfully", "index": new_index}, 201
+    return {"message": "Фильм успешно добавлен", "index": new_index}, 201
