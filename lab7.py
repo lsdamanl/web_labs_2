@@ -89,3 +89,15 @@ def put_film(id):
         films[id] = film
         return {"message": "Film updated successfully", "film": films[id]}, 200
     return {"error": "Film not found"}, 404  
+
+
+@lab7.route('/lab7/rest-api/films/', methods=['POST'])
+def add_film():
+    film = request.get_json()
+    if not film or not isinstance(film, dict):
+        return {"error": "Invalid film data"}, 400  
+
+    films.append(film)
+    
+    new_index = len(films) - 1
+    return {"message": "Film added successfully", "index": new_index}, 201
