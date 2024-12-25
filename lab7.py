@@ -69,3 +69,11 @@ def get_film(id):
     if 0 <= id < len(films):
         return films[id], 200
     return {"error": "Film not found"}, 404
+
+
+@lab7.route('/lab7/rest-api/films/<int:id>', methods=['DELETE'])
+def del_film(id):
+    if 0 <= id < len(films):
+        deleted_film = films.pop(id)
+        return {"message": "Film deleted successfully", "film": deleted_film}, 200
+    return {"error": "Film not found"}, 404
