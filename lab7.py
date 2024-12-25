@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session, current_app
+from flask import Blueprint, render_template, request, jsonify
 
 lab7 = Blueprint('lab7', __name__)
 
@@ -61,7 +61,7 @@ films = [
 
 @lab7.route('/lab7/rest-api/films/', methods=['GET'])
 def get_films():
-    return films
+    return jsonify(films)
 
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['GET'])
