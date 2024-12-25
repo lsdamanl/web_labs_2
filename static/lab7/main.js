@@ -79,32 +79,43 @@ function addFilm() {
 function sendFilm() {
     const id = document.getElementById('id').value;
     const film = {
-        title: document.getElementById('title').value,
-        title_ru: document.getElementById('title-ru').value,
-        year: document.getElementById('year').value,
-        description: document.getElementById('description').value
-    }
+        title: document.getElementById('title').value.trim(),
+        title_ru: document.getElementById('title-ru').value.trim(),
+        year: document.getElementById('year').value.trim(),
+        description: document.getElementById('description').value.trim()
+    };
 
     const url = `/lab7/rest-api/films/${id}`;
     const method = id === '' ? 'POST' : 'PUT';
 
     fetch(url, {
         method: method,
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(film)
     })
-    .then(function(resp) {
-        if(resp.ok) {
-            fillFilmList();
-            hideModal();
-            return {};
-        }
-        return resp.json();
-    })
-    .then(function(errors) {
-        if(errors.description)
-            document.getElementById('description-error').innerText = errors.description;
-    });
+        .then(function (resp) {
+            if (resp.ok) {
+                fillFilmList();
+                hideModal();
+                return {};
+            }
+            return resp.json(); 
+        })
+        .then(function (errors) {
+            document.getElementById('description-error').innerText = '';
+            document.getElementById('title-ru-error').innerText = '';
+            document.getElementById('year-error').innerText = '';
+
+            if (errors.description) {
+                document.getElementById('description-error').innerText = errors.description;
+            }
+            if (errors.title_ru) {
+                document.getElementById('title-ru-error').innerText = errors.title_ru;
+            }
+            if (errors.year) {
+                document.getElementById('year-error').innerText = errors.year;
+            }
+        });
 }
 
 function editFilm(id) {
