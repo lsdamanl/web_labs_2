@@ -77,3 +77,15 @@ def del_film(id):
         deleted_film = films.pop(id)
         return {"message": "Film deleted successfully", "film": deleted_film}, 200
     return {"error": "Film not found"}, 404
+
+
+@lab7.route('/lab7/rest-api/films/<int:id>', methods=['PUT'])
+def put_film(id):
+    if 0 <= id < len(films):  
+        film = request.get_json()
+        if not film or not isinstance(film, dict):
+            return {"error": "Invalid film data"}, 400  
+
+        films[id] = film
+        return {"message": "Film updated successfully", "film": films[id]}, 200
+    return {"error": "Film not found"}, 404  
