@@ -1,0 +1,100 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f9fc;
+        color: #333;
+    }
+    
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    main h1 {
+        font-size: 28px;
+        color: #007BFF;
+        margin-bottom: 20px;
+    }
+    
+    form {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    
+    form div {
+        margin-bottom: 15px;
+    }
+    
+    form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    form input[type="text"],
+    form input[type="password"],
+    form textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    form button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    form button:hover {
+        background-color: #0056b3;
+    }
+    
+    blockquote {
+        font-style: italic;
+        color: #555;
+        margin: 10px 0;
+        padding-left: 15px;
+        border-left: 3px solid #007BFF;
+    }
+    
+</style>
+
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 8{% endblock %}
+
+{% block main %}
+<h1>Редактирование статьи</h1>
+
+    {% if error %}
+        <div style="color: red; font-weight: bold;">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="POST" action="/lab8/article/edit/{{ article.id }}">
+        <div style="margin-bottom: 10px">
+            <label>
+                Название статьи:
+                <input type="text" id="title" name="title" maxlength="50" value="{{ article.title }}" required>
+            </label>
+        </div>
+
+        <div><textarea id="text" name="text" required>{{ article.article_text }}</textarea></div>
+
+        <button type="submit">Сохранить изменения</button>
+    </form>
+{% endblock %}
+
+{% block style %}
+{% endblock %}
