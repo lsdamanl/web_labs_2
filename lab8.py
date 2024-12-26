@@ -162,3 +162,33 @@ def delete_article(article_id):
     db.session.commit()
     return redirect('/lab8/article')
 
+@lab8.route('/lab8/public')
+def public_articles():
+    public_articles = articles.query.filter_by(is_public=True).all()
+    return render_template('lab8/public_articles.html', articles=public_articles)
+
+
+@lab8.route('/lab8/search', methods=['GET', 'POST'])
+def search_articles():
+    if request.method == 'POST':
+        search_query = request.form.get('search_query', '').strip()
+
+        if not search_query:
+            return render_template('lab8/search.html', error='Введите строку для поиска.')
+
+        if current_user.is_authenticated:
+            results = articles.query.filter(
+                (articles.title.ilike(f'%{search_query}%')) |
+                (articles.article_text.ilike(f'%{search_query}%'))
+            ).filter(
+                (articles.login_id == current_user.id) | (articles.is_public == True)
+            ).all()
+        else:
+            results = articles.query.filter(
+                (articles.title.ilike(f'%{search_query}%')) |
+                (articles.article_text.ilike(f'%{search_query}%'))
+            ).filter(articles.is_public == True).all()
+
+        return render_template('lab8/search_results.html', articles=results, query=search_query)
+
+    return render_template('lab8/search.html')
