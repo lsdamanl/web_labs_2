@@ -1,21 +1,24 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 
 lab9 = Blueprint('lab9', __name__)
 
 @lab9.route('/lab9/', methods=['GET', 'POST'])
 def main():
+    if 'congratulation' in session:
+        return redirect(url_for('lab9.show_congratulation'))
     if request.method == 'POST':
         username = request.form.get('username')
         if not username:  
             error = "Пожалуйста, введите имя"
             return render_template('lab9/index.html', error=error)
-        return redirect(url_for('lab9.ask_age', username=username))
+        session['username'] = username
+        return redirect(url_for('lab9.ask_age'))
     return render_template('lab9/index.html')
 
 
 @lab9.route('/lab9/age/', methods=['GET', 'POST'])
 def ask_age():
-    username = request.args.get('username')
+    username = session.get('username')
     if not username:  
         return redirect(url_for('lab9.main'))  
     if request.method == 'POST':
@@ -23,44 +26,47 @@ def ask_age():
         if not age or not age.isdigit():  
             error = "Пожалуйста, введите корректный возраст"
             return render_template('lab9/age.html', username=username, error=error)
-        return redirect(url_for('lab9.ask_gender', username=username, age=age))
+        session['age'] = age  
+        return redirect(url_for('lab9.ask_gender'))
     return render_template('lab9/age.html', username=username)
 
 
 @lab9.route('/lab9/gender/', methods=['GET', 'POST'])
 def ask_gender():
-    username = request.args.get('username')
-    age = request.args.get('age')
-    if not username or not age:  
-        return redirect(url_for('lab9.main'))  
+    username = session.get('username')
+    age = session.get('age')
+    if not username or not age:
+        return redirect(url_for('lab9.main')) 
     if request.method == 'POST':
         gender = request.form.get('gender')
         if not gender:
             error = "Пожалуйста, выберите ваш пол"
             return render_template('lab9/gender.html', username=username, age=age, error=error)
-        return redirect(url_for('lab9.preferences', username=username, age=age, gender=gender))
+        session['gender'] = gender  
+        return redirect(url_for('lab9.preferences'))
     return render_template('lab9/gender.html', username=username, age=age)
 
 
 @lab9.route('/lab9/preferences/', methods=['GET', 'POST'])
 def preferences():
-    username = request.args.get('username')
-    age = request.args.get('age')
-    gender = request.args.get('gender')
-    if not username or not age or not gender: 
-        return redirect(url_for('lab9.main'))  
+    username = session.get('username')
+    age = session.get('age')
+    gender = session.get('gender')
+    if not username or not age or not gender:
+        return redirect(url_for('lab9.main'))
     if request.method == 'POST':
         choice = request.form.get('choice')
-        return redirect(url_for('lab9.more_preferences', username=username, age=age, gender=gender, choice=choice))
+        session['choice'] = choice  
+        return redirect(url_for('lab9.more_preferences'))
     return render_template('lab9/preferences.html', username=username, age=age, gender=gender)
 
 
 @lab9.route('/lab9/more_preferences/', methods=['GET', 'POST'])
 def more_preferences():
-    username = request.args.get('username')
-    age = request.args.get('age')
-    gender = request.args.get('gender')
-    choice = request.args.get('choice')  
+    username = session.get('username')
+    age = session.get('age')
+    gender = session.get('gender')
+    choice = session.get('choice')
 
     if not username or not age or not gender or not choice:
         return redirect(url_for('lab9.main'))
@@ -69,15 +75,9 @@ def more_preferences():
         more_choice = request.form.get('more_choice')
 
         age = int(age)
-        if age < 18:
-            age_group = 'child'
-        else:
-            age_group = 'adult'
-
-        if gender == 'male':
-            pronoun = "прекрасный мальчик" if age_group == 'child' else "прекрасный мужчина"
-        else:
-            pronoun = "наимилейшая девочка" if age_group == 'child' else "наимилейшая женщина"
+        age_group = 'child' if age < 18 else 'adult'
+        pronoun = ("прекрасный мальчик" if age_group == 'child' else "прекрасный мужчина") if gender == 'male' else \
+                  ("наимилейшая девочка" if age_group == 'child' else "наимилейшая женщина")
 
         if choice == "что-то вкусное":
             if more_choice == "сладкое":
@@ -95,8 +95,30 @@ def more_preferences():
                 wish = "видеть красоту во всем, как художник, создающий шедевр"
 
         congratulation = f"Желаю тебе, {username}, {wish}. Вот тебе подарок!"
-        return render_template('lab9/congratulations.html', username=username, age=age,
-            pronoun=pronoun, congratulation=congratulation, gift_image=gift_image)
+
+        session['congratulation'] = congratulation
+        session['gift_image'] = gift_image
+        session['pronoun'] = pronoun
+        return redirect(url_for('lab9.show_congratulation'))
 
     return render_template('lab9/more_preferences.html', username=username, age=age,
         gender=gender, choice=choice)
+
+
+@lab9.route('/lab9/congratulation/')
+def show_congratulation():
+    if 'congratulation' not in session:
+        return redirect(url_for('lab9.main'))
+    return render_template(
+        'lab9/congratulations.html',
+        username=session['username'],
+        pronoun=session['pronoun'],
+        congratulation=session['congratulation'],
+        gift_image=session['gift_image']
+    )
+
+
+@lab9.route('/lab9/reset/')
+def reset():
+    session.clear()
+    return redirect(url_for('lab9.main'))
