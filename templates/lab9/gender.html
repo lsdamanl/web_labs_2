@@ -1,12 +1,18 @@
 {% block lab %}
     <div class="lab-block">WEB-программирование, часть 2. Лабораторная работа 9</div>
 {% endblock %}
+
 {% block main %}
-    <h1>Поздравления</h1>
-    <h3>Введите своё имя</h3>
+    <h1>Привет, {{ username }}!</h1>
+    <h3>Ваш возраст: {{ age }}</h3>
+    <h3>Пожалуйста, укажите ваш пол:</h3>
     <form method="post">
-        <label for="username">Имя:</label>
-        <input type="text" id="username" name="username" required>
+        <label>
+            <input type="radio" name="gender" value="male"> Мужчина
+        </label>
+        <label>
+            <input type="radio" name="gender" value="female"> Женщина
+        </label>
         <button type="submit">Продолжить</button>
     </form>
     {% if error %}
